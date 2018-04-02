@@ -1,22 +1,19 @@
 class Api::V1::GamesController < ApplicationController
 
   #counter; players
-  def index
-    @activeGames = Game.all.select do |g|
-      g.counter == 0
-    end
-    render json: @activeGames
-  end
 
+  def index
+    @games = Game.all
+    render json: @games
+  end
 
   #when a new game is created, tell the lobby_channel
   def create
     @game = Game.new(counter: 0)
-    if @game.valid?
+    if @game.valid
       @game.save
-      ActionCable.server.broadcast("new_games", @game)
+      ActionCable.server.broadcast("lobby_channel", @game)
     end
-    render json: @game
   end
 
   #when a game is updated (with new players, with cardCounter, or points), tell that game's channel
