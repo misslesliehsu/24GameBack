@@ -2,7 +2,7 @@ class Api::V1::CardsController < ApplicationController
 
   #numbers; winner_id; gameId
   def create
-    @card = Card.new(num1:1, num2:2, num3:3, num4:4, winnerId:nil, gameId: params[:gameId])
+    @card = Card.new(num1:1, num2:2, num3:3, num4:4, winnerId:nil, game_id: params[:gameId])
     if @card.valid?
       @card.save
       ActionCable.server.broadcast("card_channel_#{@card.id}", @card)
