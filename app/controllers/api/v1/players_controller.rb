@@ -30,10 +30,11 @@ class Api::V1::PlayersController < ApplicationController
       @game = Game.find(@player.game_id)
       if @game.counter == 0
         @game.update(counter: 1)
-        @card = Card.create!(num1: 1, num2:2, num3: 3, num4: 4, winnerId: nil, game_id: @gameid)
+        @card = Card.create!(num1: 1, num2:2, num3: 3, num4: 4, winnerId: nil, game_id: @game.id)
         ActionCable.server.broadcast("game_channel_#{@game.id}", {type: "firstTurn", payload: @card})
       else
-        @card = @game.card.update(num1: 3, num2:4, num3: 5, num4: 7, winnerId: nil, game_id: @game.id)
+        @card = @game.card
+        @card.update(num1: 3, num2:4, num3: 5, num4: 7, winnerId: nil, game_id: @game.id)
         ActionCable.server.broadcast("game_channel_#{@game.id}", {type: "newCard", payload: @card})
       end
     end
