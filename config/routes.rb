@@ -3,7 +3,7 @@ Rails.application.routes.draw do
       namespace :v1 do
         resources :games do
           resources :players, only: [:index, :create, :update, :destroy]
-          resources :cards, only: [:create, :update]
+          resources :cards, only: [:create, :update, :show]
         end
         mount ActionCable.server => '/cable'
       end

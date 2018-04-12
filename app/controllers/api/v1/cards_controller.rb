@@ -1,6 +1,7 @@
 class Api::V1::CardsController < ApplicationController
 
   #numbers; winner_id; gameId
+
   def create
     @set = Card.sets.sample
     @card = Card.new(num1:@set[0], num2:@set[1], num3:@set[2], num4:@set[3], winnerId:nil, game_id: params[:gameId])

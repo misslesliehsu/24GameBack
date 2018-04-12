@@ -27,8 +27,10 @@ class Api::V1::GamesController < ApplicationController
   #when a game is updated (with new players, with cardCounter, or points), tell that game's channel
   def update
     @game = Game.find(params[:id])
-    @game.update(counter: @game.counter + 1)
+    # @game.update(counter: @game.counter + 1)
     @player = Player.find(params[:winnerId])
+    @card = @game.card
+    @card.update(winnerId: params[:winnerId])
     @player.update(points: @player.points + 10)
     @players = @game.players
     @players.each do |p|

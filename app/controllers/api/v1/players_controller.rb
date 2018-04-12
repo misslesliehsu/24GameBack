@@ -35,6 +35,7 @@ class Api::V1::PlayersController < ApplicationController
         ActionCable.server.broadcast("game_channel_#{@game.id}", {type: "firstTurn", payload: @card})
       else
         @card = @game.card
+        @game.update(counter: @game.counter + 1)
         @card.update(num1:@set[0], num2:@set[1], num3:@set[2], num4:@set[3], winnerId: nil, game_id: @game.id)
         @card.save
         ActionCable.server.broadcast("game_channel_#{@game.id}", {type: "newCard", payload: @card})
