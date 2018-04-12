@@ -28,17 +28,24 @@ class Api::V1::PlayersController < ApplicationController
       end
     then
       @game = Game.find(@player.game_id)
+      @set = Card.sets.sample
       if @game.counter == 0
         @game.update(counter: 1)
-        @card = Card.create!(num1: 1, num2:2, num3: 3, num4: 4, winnerId: nil, game_id: @game.id)
+        @card = Card.create!(num1:@set[0], num2:@set[1], num3:@set[2], num4:@set[3], winnerId: nil, game_id: @game.id)
         ActionCable.server.broadcast("game_channel_#{@game.id}", {type: "firstTurn", payload: @card})
       else
         @card = @game.card
-        @card.update(num1: 3, num2:4, num3: 5, num4: 7, winnerId: nil, game_id: @game.id)
+        @card.update(num1:@set[0], num2:@set[1], num3:@set[2], num4:@set[3], winnerId: nil, game_id: @game.id)
+        @card.save
         ActionCable.server.broadcast("game_channel_#{@game.id}", {type: "newCard", payload: @card})
       end
     end
   end
+
+def destroy
+  @player = Player.find(params[:id])
+  @player.destroy
+end
 
 
 private
