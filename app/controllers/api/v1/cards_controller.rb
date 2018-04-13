@@ -8,6 +8,7 @@ class Api::V1::CardsController < ApplicationController
     if @card.valid?
       @card.save
       ActionCable.server.broadcast("card_channel_#{@card.id}", @card)
+    end
   end
 
   def update
