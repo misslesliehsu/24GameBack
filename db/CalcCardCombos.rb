@@ -44,6 +44,8 @@ def find_candidates(array_of_arrays_of_arrays)
         if eval(r.join("")) == 24 then cards << r end
       end
     end
+    
+    puts cards.length
 
     cards.each do |array|
       numsOnly = array.select do |char|
