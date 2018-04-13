@@ -1,4 +1,7 @@
 Rails.application.configure do
+  config.web_socket_server_url = "ws://letsget24backend.herokuapp.com/cable'"
+  config.action_cable.allowed_request_origins = ['https://letsget24.herokuapp.com', 'http://letsget24.herokuapp.com']
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
