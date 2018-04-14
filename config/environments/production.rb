@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.web_socket_server_url = "wss://letsget24backend.herokuapp.com/cable"
+  config.web_socket_server_url = "wss://letsget24back.herokuapp.com/cable"
   config.action_cable.allowed_request_origins = ['https://letsget24.herokuapp.com', 'http://letsget24.herokuapp.com']
 
   # Settings specified here will take precedence over those in config/application.rb.

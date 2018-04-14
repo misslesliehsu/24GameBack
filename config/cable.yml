@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://redistogo:253dc18b8a888d3c1c26f7667dd8d04e@albacore.redistogo.com:9677/
+  url: redis://localhost:6379/1
   channel_prefix: twentyfourgame_production

@@ -30,7 +30,7 @@ class Api::V1::PlayersController < ApplicationController
       @game = Game.find(@player.game_id)
       @set = Card.sets.sample
       if @game.counter == 0
-        @game.update(counter: 2)
+        @game.update(counter: 1)
         @card = Card.create!(num1:@set[0], num2:@set[1], num3:@set[2], num4:@set[3], winnerId: nil, game_id: @game.id)
         ActionCable.server.broadcast("game_channel_#{@game.id}", {type: "firstTurn", payload: @card})
       else

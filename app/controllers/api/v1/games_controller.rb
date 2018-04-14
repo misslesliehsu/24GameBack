@@ -36,6 +36,7 @@ class Api::V1::GamesController < ApplicationController
     @players.each do |p|
       p.ready = false
     end
+    x = 0
     ActionCable.server.broadcast("card_channel_#{@game.card.id}", @player)
     ActionCable.server.broadcast("game_channel_#{@game.id}", {type: "pointsUpdateAndCardTurn", payload: {players: @players, counter: @game.counter}})
   end
